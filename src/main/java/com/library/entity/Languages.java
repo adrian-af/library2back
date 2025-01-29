@@ -1,0 +1,27 @@
+package com.library.entity;
+
+public enum Languages {
+	ENGLISH, 
+	SPANISH, 
+	CHINESE, 
+	GERMAN,
+	FRENCH,
+	JAPANESE,
+	RUSSIAN,
+	PORTUGUESE,
+	ITALIAN,
+	HINDI,
+	KOREAN,
+	ARABIC,
+	TURKISH,
+	DUTCH,
+	SWEDISH,
+	POLISH,
+	PERSIAN,
+	THAI,
+	VIETNAMESE,
+	INDONESIAN,
+	CATALAN,
+	GALICIAN,
+	OTHER
+}
