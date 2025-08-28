@@ -1,5 +1,6 @@
 package com.library.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +22,8 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 		@Modifying
 		@Query("UPDATE Genre g SET g.name = ?1 WHERE g.idGenre = ?2")
 		void updateNameById(String name, Long idGenre);
+
+		List<Genre> findAllByOrderByNameAsc();
 		
 		//Delete: deleteById() defined by default
 }

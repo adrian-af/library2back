@@ -433,4 +433,14 @@ public class BookServiceImpl implements BookService{
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred when deleting the genre. Please try again later or contact support: " + idGenre + e.getMessage());
 		}
 	}
+
+	@Override
+	public List<Author> getAllAuthorsOrdered() {
+		return authorRepository.findAllByOrderByLastNameAsc();
+	}
+
+	@Override
+	public List<Genre> getAllGenresOrdered() {
+		return genreRepository.findAllByOrderByNameAsc();
+	}
 }

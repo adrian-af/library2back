@@ -34,7 +34,9 @@ public interface AuthorRepository extends JpaRepository<Author, Long>{
 	@Transactional
 	@Modifying
 	@Query("UPDATE Author a set a.lastName = ?1 where a.idAuthor = ?2")
-	void updateLastNameById(String lastName, Long idAuthor); 
+	void updateLastNameById(String lastName, Long idAuthor);
+	
+	List<Author> findAllByOrderByLastNameAsc(); 
 	 
 	//Delete: deleteById() defined by default
 }

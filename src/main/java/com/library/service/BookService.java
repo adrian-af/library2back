@@ -12,6 +12,7 @@ import com.library.entity.Genre;
 
 public interface BookService {
 	List<Book> getAllBooks();
+	List<Author> getAllAuthorsOrdered();
 	ResponseEntity<?> insertBook(Book book);
 	ResponseEntity<?> updateBook(Book book);
 	ResponseEntity<?> updateBookTitleById(String title, Long idBook);
@@ -32,8 +33,10 @@ public interface BookService {
 	ResponseEntity<?> deleteCopy(Long idCopy);
 	
 	List<Genre> getAllGenres();
+	List<Genre> getAllGenresOrdered();
 	ResponseEntity<?> insertGenre(Genre genre);
 	ResponseEntity<?> updateGenre(Genre genre);
 	ResponseEntity<?> updateGenreName(String genreName, Long idGenre);
 	ResponseEntity<?> deleteGenre(Long idCopy);
+	
 }

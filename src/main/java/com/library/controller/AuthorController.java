@@ -26,6 +26,11 @@ public class AuthorController {
 		return bookService.getAllAuthors();
 	}
 	
+	@GetMapping("/allOrdered") //get all authors ordered alphabetically by last name
+	public List<Author> getAllAuthorsOrdered(){
+		return bookService.getAllAuthorsOrdered();
+	}
+	
 	@PostMapping("/insertAuthor") //insert new author
 	public ResponseEntity<?> createAuthor(@RequestBody Author author){
 		return bookService.insertAuthor(author);
