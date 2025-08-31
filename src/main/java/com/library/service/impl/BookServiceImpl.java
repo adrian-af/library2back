@@ -20,6 +20,9 @@ import com.library.repository.CopyRepository;
 import com.library.repository.GenreRepository;
 import com.library.service.BookService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService{
 	@Autowired
@@ -38,12 +41,18 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public ResponseEntity<?> insertBook(Book book) {
+		log.debug("Entering method insertBook");
+		if(!validateDataBook(book)) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Data not correct");
+		}
 		try {
 			Book savedBook = bookRepository.save(book); //returns the book if the save is successful
 			if(checkInsertBook(savedBook)) {
+				log.info("book saved successfully: " + book);
 				return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
 			}
 			else {
+				log.info("book saved unsuccessfully: " + book );
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred when saving the book to the database. Please try again later or contact support: "+ book.toString());
 			}
 		}catch(Exception e) {
@@ -64,18 +73,37 @@ public class BookServiceImpl implements BookService{
 			return false;
 		}
 	}
+	
+	private boolean validateDataBook(Book book) {
+		if(book.getTitle() == null || book.getTitle() == "") {
+			return false;
+		}
+		if(book.getAuthor() == null) {
+			return false;
+		}
+		if(book.getAuthor().get(0) != null) {
+			if(book.getAuthor().get(0).getIdAuthor() == null){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public ResponseEntity<?> insertAuthor(Author author) {
+		log.debug("Entering method insertAuthor");
 		try {
 			Author savedAuthor = authorRepository.save(author); //returns the author if the save is successful
 			if(checkInsertAuthor(savedAuthor)) {
+				log.info("author saved successfully: " + author);
 				return ResponseEntity.status(HttpStatus.CREATED).body(savedAuthor);
 			}
 			else {
+				log.info("author saved unsuccessfully: " + author);
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred when saving the author to the database. Please try again later or contact support: "+ author.toString());
 			}
 		}catch(Exception e) {
+			log.info("went into catch block. Author: " + author);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred when saving the author to the database. Please try again later or contact support: " + author.toString() + e.getMessage());
 		}
 	}
